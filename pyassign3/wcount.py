@@ -28,22 +28,13 @@ def wcount(lines, topn=10):
         lst[i] = clean(word)
         
     alphabet = 'qwertyuioplkjhgfdsazxcvbnmQWERTYUIOPLKJHGFDSAZXCVBNM'
-    raw_english = []
-    for word in lst:
-        if set(word).issubset(set(alphabet)):
-            raw_english.append(word)
+    raw_english = [word for word in lst if set(word).issubset(set(alphabet))]
             
-    english = []
-    for word in raw_english:
-        temp = word.lower()
-        english.append(temp)
+    english = [word.lower() for word in raw_english]
         
     vocab = list(set(english))
     
-    freq = []
-    for word in vocab:
-        time = english.count(word)
-        freq.append(time)
+    freq = [english.count(word) for word in vocab]
         
     corr = {}
     for i in range(len(freq)):
@@ -52,9 +43,7 @@ def wcount(lines, topn=10):
     freq.sort(reverse = True)
     out_freq = freq[:topn]
     
-    out_vocab = []
-    for time in out_freq:
-        out_vocab.append(corr[time])
+    out_vocab = [corr[time] for time in out_freq]
         
     for i in range(topn):
         print(out_vocab[i],'  ',out_freq[i])
